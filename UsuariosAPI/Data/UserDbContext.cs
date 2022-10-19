@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using UsuariosAPI.Models;
 
 namespace UsuariosAPI.Data
 {
-    public class UserDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
+    public class UserDbContext : IdentityDbContext<CustomIdentityUser, IdentityRole<int>, int>
     {
+        private IConfiguration _config;
 
-        public UserDbContext(DbContextOptions<UserDbContext> opt) : base(opt)
+        public UserDbContext(DbContextOptions<UserDbContext> opt, IConfiguration config) : base(opt)
         {
-
+            _config = config;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            IdentityUser<int> admin = new IdentityUser<int>
+            CustomIdentityUser admin = new CustomIdentityUser
             {
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
@@ -27,11 +29,12 @@ namespace UsuariosAPI.Data
                 Id = 9999
             };
 
-            PasswordHasher<IdentityUser<int>> hasher = new PasswordHasher<IdentityUser<int>>();
+            PasswordHasher<CustomIdentityUser> hasher = new PasswordHasher<CustomIdentityUser>();
 
-            admin.PasswordHash = hasher.HashPassword(admin, "Admin!123");
+            admin.PasswordHash = hasher.HashPassword(admin, 
+                _config.GetValue<string>("admininfo:password"));
 
-            builder.Entity<IdentityUser<int>>().HasData(admin);
+            builder.Entity<CustomIdentityUser>().HasData(admin);
 
             builder.Entity<IdentityRole<int>>().HasData(
                 new IdentityRole<int>
@@ -39,6 +42,15 @@ namespace UsuariosAPI.Data
                     Id = 1,
                     Name = "admin",
                     NormalizedName = "ADMIN"
+                }
+            );
+
+            builder.Entity<IdentityRole<int>>().HasData(
+                new IdentityRole<int>
+                {
+                    Id = 2,
+                    Name = "regular",
+                    NormalizedName = "REGULAR"
                 }
             );
 

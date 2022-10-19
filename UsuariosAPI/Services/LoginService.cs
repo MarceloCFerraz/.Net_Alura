@@ -8,10 +8,10 @@ namespace UsuariosAPI.Services
 {
     public class LoginService
     {
-        private SignInManager<IdentityUser<int>> _signInManager;
+        private SignInManager<CustomIdentityUser> _signInManager;
         private TokenService _tokenService;
 
-        public LoginService(SignInManager<IdentityUser<int>> signInManager, TokenService tokenService)
+        public LoginService(SignInManager<CustomIdentityUser> signInManager, TokenService tokenService)
         {
             _signInManager = signInManager;
             _tokenService = tokenService;
@@ -62,7 +62,7 @@ namespace UsuariosAPI.Services
         {
             Result retorno = Result.Fail("E-mail não vinculado a nenhum usuário");
 
-            IdentityUser<int>? identityUser = GetUserByEmail(request.Email);
+            CustomIdentityUser? identityUser = GetUserByEmail(request.Email);
             if (identityUser != null)
             {
                 IdentityResult reset = _signInManager.UserManager.ResetPasswordAsync(
@@ -85,7 +85,7 @@ namespace UsuariosAPI.Services
         {
             Result retorno = Result.Fail("Reset não pôde ser realizado");
 
-            IdentityUser<int>? identityUser = GetUserByEmail(request.Email);
+            CustomIdentityUser? identityUser = GetUserByEmail(request.Email);
 
             if (identityUser != null)
             {
@@ -99,7 +99,7 @@ namespace UsuariosAPI.Services
             return retorno;
         }
 
-        private IdentityUser<int>? GetUserByEmail(string email)
+        private CustomIdentityUser? GetUserByEmail(string email)
         {
             return _signInManager.UserManager.Users.FirstOrDefault(
                     user => user.NormalizedEmail == email.ToUpper()

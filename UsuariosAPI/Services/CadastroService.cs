@@ -10,17 +10,15 @@ namespace UsuariosAPI.Services
 {
     public class CadastroService
     {
-        private UserManager<IdentityUser<int>> _userManager;
-        private RoleManager<IdentityRole<int>> _roleManager;
+        private UserManager<CustomIdentityUser> _userManager;
         private IMapper _mapper;
-        private EmailService _emailService;
+        //private EmailService _emailService;
 
-        public CadastroService(IMapper mapper, UserManager<IdentityUser<int>> userManager, EmailService emailService, RoleManager<IdentityRole<int>> roleManager)
+        public CadastroService(IMapper mapper, UserManager<CustomIdentityUser> userManager, EmailService emailService, RoleManager<IdentityRole<int>> roleManager)
         {
             _mapper = mapper;
             _userManager = userManager;
-            _emailService = emailService;
-            _roleManager = roleManager;
+            //_emailService = emailService;
         }
 
         public Result CadastraUsuario(CadastroUsuarioDTO cadastroDTO)
@@ -28,17 +26,15 @@ namespace UsuariosAPI.Services
             Result retorno = Result.Fail("Falha ao cadastrar usuário");
 
             Usuario usuario = _mapper.Map<Usuario>(cadastroDTO);
-            IdentityUser<int> usuarioIdentity = _mapper.Map<IdentityUser<int>>(usuario);
+            CustomIdentityUser usuarioIdentity = _mapper.Map<CustomIdentityUser>(usuario);
 
             Task<IdentityResult> cadastro = _userManager.CreateAsync
                 (
                     usuarioIdentity, cadastroDTO.Password
                 );
-            //var createRoleResult = _roleManager.CreateAsync(new IdentityRole<int>("admin")).Result;
-            //Console.WriteLine(createRoleResult);
 
-            //var usuarioRoleResult = _userManager.AddToRoleAsync(usuarioIdentity, "admin").Result;
-            //Console.WriteLine(usuarioRoleResult);
+            var usuarioRoleResult = _userManager.AddToRoleAsync(usuarioIdentity, "regular").Result;
+            Console.WriteLine(usuarioRoleResult);
 
             if (cadastro.Result.Succeeded)
             {
@@ -84,7 +80,7 @@ namespace UsuariosAPI.Services
 
         public List<UsuarioDTO> GetUsuarios()
         {
-            List<IdentityUser<int>> usuarios = _userManager.Users.ToList();
+            List<CustomIdentityUser> usuarios = _userManager.Users.ToList();
             List<UsuarioDTO> usuariosDTO = _mapper.Map<List<UsuarioDTO>>(usuarios);
 
             return usuariosDTO;

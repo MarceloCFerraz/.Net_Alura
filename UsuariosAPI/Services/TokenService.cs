@@ -11,13 +11,14 @@ namespace UsuariosAPI.Services
     public class TokenService
     {
 
-        public Token CreateToken(IdentityUser<int> usuario, string role)
+        public Token CreateToken(CustomIdentityUser usuario, string role)
         {
             Claim[] direitosUsuario = new Claim[]
             {
                 new Claim("username", usuario.UserName),
                 new Claim("id", usuario.Id.ToString()),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.DateOfBirth, usuario.DataNascimento.ToString())
             };
 
             var chave = new SymmetricSecurityKey
@@ -38,7 +39,7 @@ namespace UsuariosAPI.Services
             return new Token(tokenString);
         }
 
-        public Token CreateToken(IdentityUser<int> usuario)
+        public Token CreateToken(CustomIdentityUser usuario)
         {
             Claim[] direitosUsuario = new Claim[]
             {

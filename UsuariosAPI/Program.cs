@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UsuariosAPI.Data;
+using UsuariosAPI.Models;
 using UsuariosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +20,7 @@ builder.Services.AddDbContext<UserDbContext>
 (
     options => options.UseMySQL(builder.Configuration.GetConnectionString("UsuarioConnection"))
 );
-builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>
+builder.Services.AddIdentity<CustomIdentityUser, IdentityRole<int>>
     (
         opt => opt.SignIn.RequireConfirmedAccount = false
         //opt => opt.SignIn.RequireConfirmedAccount = true

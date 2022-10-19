@@ -11,8 +11,8 @@ using UsuariosAPI.Data;
 namespace UsuariosAPI.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20221019182854_recomeçando")]
-    partial class recomeçando
+    [Migration("20221019192340_admin com secret")]
+    partial class admincomsecret
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace UsuariosAPI.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "960db5b5-24cb-4179-ad0a-c13e12dba2d6",
+                            ConcurrencyStamp = "951d4c99-7012-4677-bf74-0d74b4070d18",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -148,15 +148,15 @@ namespace UsuariosAPI.Migrations
                         {
                             Id = 9999,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "80484ce2-2a9e-4657-ac5f-3a6fa71c5e36",
+                            ConcurrencyStamp = "5685d766-0110-40b7-8b53-ffb9d059ae1f",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPlOdfGpTwgQ5iHb3+kWK1s0fscH//flY0QbBreJcPQ/pUazmQoCQ51amffTH/Uv1w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECYZMgzGRAnedZ3wLm788Me+MJdmOG3KlP6S1bh8tv/bpOkOVmgf2HfNbsNlz9i7Bg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d1571dd-1bc7-418a-95f2-084e48a27be2",
+                            SecurityStamp = "50e70fa1-c7c1-4ca4-9407-a11cc894d4e5",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

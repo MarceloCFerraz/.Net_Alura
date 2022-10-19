@@ -6,7 +6,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace UsuariosAPI.Migrations
 {
-    public partial class recomeçando : Migration
+    public partial class admincomsecret : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -160,12 +160,12 @@ namespace UsuariosAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "960db5b5-24cb-4179-ad0a-c13e12dba2d6", "admin", "ADMIN" });
+                values: new object[] { 1, "951d4c99-7012-4677-bf74-0d74b4070d18", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 9999, 0, "80484ce2-2a9e-4657-ac5f-3a6fa71c5e36", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEPlOdfGpTwgQ5iHb3+kWK1s0fscH//flY0QbBreJcPQ/pUazmQoCQ51amffTH/Uv1w==", null, false, "6d1571dd-1bc7-418a-95f2-084e48a27be2", false, "admin" });
+                values: new object[] { 9999, 0, "5685d766-0110-40b7-8b53-ffb9d059ae1f", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAECYZMgzGRAnedZ3wLm788Me+MJdmOG3KlP6S1bh8tv/bpOkOVmgf2HfNbsNlz9i7Bg==", null, false, "50e70fa1-c7c1-4ca4-9407-a11cc894d4e5", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
